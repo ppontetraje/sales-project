@@ -1,15 +1,12 @@
 ﻿@page "/countries"
 
-@using Sales.WEB.Repositories
-@using Sales.Shared.Entities
 
 @inject IRepository repository
 <h3>Países</h3>
+<a class="btn btn-primary mb-3" href="/countries/create">Nuevo País</a>
 
 <GenericList MyList="Countries">
-    <Loading>
-        <p>Cargando...</p>
-    </Loading>
+    
     <Body>
         <table class="table table-striped">
             <thead>
@@ -43,7 +40,7 @@
     protected override async Task OnInitializedAsync()
     {
         var responseHttp = await repository.Get<List<Country>>("/api/countries");
-        Countries = new List<Country>(); // responseHttp.Response;
+        Countries = responseHttp.Response;
 
     }
 }
